@@ -22,9 +22,9 @@ for (let i = 0; i < n; i++) {
             let indivious = video.substring(0, video.indexOf('?')).replace("www.youtube.com", "invidious.kavin.rocks");
             el.src = indivious;
 
-            /* let height = el.scrollHeight;
-            let width = el.scrollWidth;
-            el.style = "height: " + height + "px; width:" + width + "px;"; */
+            let size = document.getElementsByClassName("video-player")[i].scrollWidth;
+            el.width = size;
+            el.height = size / 16 * 9;
 
             removeElements(document.querySelectorAll(".video-controls"));
             removeElements(document.querySelectorAll(".spinner"));
