@@ -19,7 +19,7 @@ for (let i = 0; i < n; i++) {
 
             let video = el.src;
 
-            let indivious = video.substring(0, video.indexOf('?')).replace("www.youtube.com", "invidious.kavin.rocks");
+            let indivious = video.substring(0, video.indexOf('?')).replace("www.youtube.com", "invidious.osi.kr");
             el.src = indivious;
 
             let size = document.getElementsByClassName("video-player")[i].scrollWidth;
