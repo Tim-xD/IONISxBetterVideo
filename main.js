@@ -25,11 +25,11 @@ function changeMediaPlayer(result) {
                 let el = document.getElementsByTagName("iframe")[i];
 
                 let video = el.src;
-                console.log(video)
+
                 if (video.includes("www.youtube.com")) {
                     let newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance);
                     el.src = newvideo;
-                    console.log(newvideo)
+
                     let size = document.getElementsByClassName("video-player")[i].scrollWidth;
                     el.width = size;
                     el.height = size / 16 * 9;

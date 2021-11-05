@@ -3,6 +3,16 @@ function saveOptions(e) {
     browser.storage.local.set({
         instance: document.querySelector("#instance").value
     });
+    browser.runtime.reload();
+}
+
+function reset(e) {
+    e.preventDefault();
+    browser.storage.local.set({
+        instance: "invidious.osi.kr"
+    });
+    document.querySelector("#instance").value = "invidious.osi.kr";
+    browser.runtime.reload();
 }
 
 function restoreOptions() {
@@ -21,3 +31,5 @@ function restoreOptions() {
 
 document.addEventListener("DOMContentLoaded", restoreOptions);
 document.querySelector("form").addEventListener("submit", saveOptions);
+
+document.querySelector("form").addEventListener("reset", reset);
