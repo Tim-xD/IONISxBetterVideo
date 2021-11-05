@@ -44,5 +44,5 @@ function changeMediaPlayer(result) {
     }
 }
 
-var getting = browser.storage.local.get("instance");
+let getting = browser.storage.local.get("instance");
 getting.then(changeMediaPlayer, onError);

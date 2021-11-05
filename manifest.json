@@ -16,6 +16,7 @@
     "webRequest",
     "webRequestBlocking",
     "https://www.youtube.com/*",
+    "tabs",
     "storage"
   ],
   "background": {
