@@ -17,10 +17,12 @@ function blockRequest(result) {
             let instance = result.instance || "invidious.osi.kr";
             let url = activetabs[0].url;
 
-            if (url.includes("youtube.com") || (instance.includes("youtube.com") && url.includes("courses.ionisx.com"))) {
+            if (url.includes("youtube.com") || (instance.includes("youtube.") && url.includes("ionisx.com"))) {
+                console.log("not blocked")
                 return { cancel: false };
             }
             else {
+                console.log("blocked");
                 return { cancel: true };
             }
         }

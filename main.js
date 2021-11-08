@@ -27,7 +27,7 @@ function changeMediaPlayer(result) {
                 let video = el.src;
 
                 if (video.includes("www.youtube.com")) {
-                    let newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance);
+                    let newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance) || video.replace("www.youtube.com", instance);
                     el.src = newvideo;
 
                     let size = document.getElementsByClassName("video-player")[i].scrollWidth;
