@@ -16,9 +16,9 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "https://www.youtube.com/*",
     "tabs",
-    "storage"
+    "storage",
+    "*://www.youtube.com/*"
   ],
   "background": {
     "scripts": [

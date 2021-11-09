@@ -1,6 +1,6 @@
 const filter = {
-    urls: [
-        "*://www.youtube.com/*",
+    urls: [    
+        "*://www.youtube.com/*"
     ],
 };
 const webRequestFlags = [
@@ -12,26 +12,20 @@ function onError(error) {
 }
 
 function blockRequest(result) {
-    function blockYt() {
-        function logActive(activetabs) {
-            let instance = result.instance || "invidious.osi.kr";
-            let url = activetabs[0].url;
+    function blockYt(page) {
+        console.log(page)
+        let instance = result.instance || "invidious.osi.kr";
 
-            if (url.includes("youtube.com") || (instance.includes("youtube.") && url.includes("ionisx.com"))) {
-                console.log("not blocked")
-                return { cancel: false };
-            }
-            else {
-                console.log("blocked");
-                return { cancel: true };
-            }
+        if ((page.thirdParty || page.type == "xmlhttprequest") && page.url.includes("youtube.") && !instance.includes("youtube.")) {
+            console.log("blocked");
+            return { cancel: true };
+        } else {
+            console.log("!blocked");
+            return { cancel: false };
         }
-
-        let querying_active = browser.tabs.query({ currentWindow: true, active: true });
-        return querying_active.then(logActive, onError);
     }
 
-    browser.webRequest.onBeforeRequest.addListener(blockYt,
+    browser.webRequest.onBeforeRequest.addListener(page => { blockYt(page) },
         filter,
         webRequestFlags);
 };
