@@ -1,5 +1,5 @@
 const filter = {
-    urls: [    
+    urls: [
         "*://www.youtube.com/*"
     ],
 };
@@ -14,15 +14,27 @@ function onError(error) {
 function blockRequest(result) {
     function blockYt(page) {
         console.log(page)
-        let instance = result.instance || "invidious.osi.kr";
+        function logTabs(tabs) {
+            let isionis = false;
+            let id = page.tabId
 
-        if ((page.thirdParty || page.type == "xmlhttprequest") && page.url.includes("youtube.") && !instance.includes("youtube.")) {
-            console.log("blocked");
-            return { cancel: true };
-        } else {
-            console.log("!blocked");
-            return { cancel: false };
+            for (let tab of tabs) {
+                isionis = isionis || tab.id == id;
+            }
+
+            let instance = result.instance || "invidious.osi.kr";
+
+            if ((id == -1 || (page.thirdParty && isionis)) && !instance.includes("youtube.")) {
+                console.log("blocked");
+                return { cancel: true };
+            } else {
+                console.log("!blocked");
+                return { cancel: false };
+            }
         }
+
+        let querying = browser.tabs.query({ url: ["https://courses.ionisx.com/*","https://ionisx.com/courses/*"]});
+        querying.then(logTabs, onError);
     }
 
     browser.webRequest.onBeforeRequest.addListener(page => { blockYt(page) },
