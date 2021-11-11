@@ -4,13 +4,13 @@ function onError(error) {
     console.log(`Error: ${error}`);
 }
 
-function waitForIFrame(i, callBack) {
+function waitForIFrame(callBack) {
     window.setTimeout(function () {
-        let element = document.getElementsByTagName("iframe")[i];
+        let element = document.getElementsByTagName("iframe");
         if (element) {
-            callBack(i, element);
+            callBack(element);
         } else {
-            waitForIFrame(i, callBack);
+            waitForIFrame(callBack);
         }
     }, 100)
 }
@@ -18,30 +18,28 @@ function waitForIFrame(i, callBack) {
 function changeMediaPlayer(result) {
     let instance = result.instance || "invidious.osi.kr";
 
-    let n = document.getElementsByTagName("iframe").length
-    for (let i = 0; i < n; i++) {
-        waitForIFrame(i, function () {
+    waitForIFrame(function () {
+        let iframes = document.getElementsByTagName("iframe");
+        for (let el of iframes) {
             try {
-                let el = document.getElementsByTagName("iframe")[i];
-
                 let video = el.src;
 
                 if (video.includes("www.youtube.com")) {
                     let newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance) || video.replace("www.youtube.com", instance);
                     el.src = newvideo;
 
-                    let size = document.getElementsByClassName("video-player")[i].scrollWidth;
+                    let size = el.scrollWidth;
                     el.width = size;
                     el.height = size / 16 * 9;
-
-                    removeElements(document.querySelectorAll(".video-controls"));
-                    removeElements(document.querySelectorAll(".spinner"));
                 }
             } catch (e) {
                 logErreurs(e);
             }
-        });
-    }
+        }
+    });
+
+    removeElements(document.querySelectorAll(".video-controls"));
+    removeElements(document.querySelectorAll(".spinner"));
 }
 
 let getting = browser.storage.local.get("instance");
