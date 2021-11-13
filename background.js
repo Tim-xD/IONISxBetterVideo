@@ -14,30 +14,24 @@ function onError(error) {
 function blockRequest(result) {
     function blockYt(page) {
         console.log(page)
-        function logTabs(tabs) {
-            let isionis = false;
-            let id = page.tabId
 
-            for (let tab of tabs) {
-                isionis = isionis || tab.id == id;
-            }
-
-            let instance = result.instance || "invidious.osi.kr";
-
-            if ((id == -1 || (page.thirdParty && isionis)) && !instance.includes("youtube.")) {
-                console.log("blocked");
-                return { cancel: true };
-            } else {
-                console.log("!blocked");
-                return { cancel: false };
-            }
+        if (page.tabId == -1) {
+            console.log("blocked");
+            return { cancel: true };
         }
 
-        let querying = browser.tabs.query({ url: ["https://courses.ionisx.com/*","https://ionisx.com/courses/*"]});
-        querying.then(logTabs, onError);
+        let instance = result.instance || "invidio.xamh.de";
+
+        if (page.originUrl.includes("courses.ionisx.com") && !instance.includes("www.youtube.com")) {
+            console.log("blocked");
+            return { cancel: true };
+        } else {
+            console.log("!blocked");
+            return { cancel: false };
+        }
     }
 
-    browser.webRequest.onBeforeRequest.addListener(page => { blockYt(page) },
+    browser.webRequest.onBeforeRequest.addListener(page => { return blockYt(page) },
         filter,
         webRequestFlags);
 };
