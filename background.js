@@ -13,22 +13,8 @@ function onError(error) {
 
 function blockRequest(result) {
     function blockYt(page) {
-        console.log(page)
-
-        if (page.tabId == -1) {
-            console.log("blocked");
-            return { cancel: true };
-        }
-
-        let instance = result.instance || "invidio.xamh.de";
-
-        if (page.originUrl.includes("courses.ionisx.com") && !instance.includes("www.youtube.com")) {
-            console.log("blocked");
-            return { cancel: true };
-        } else {
-            console.log("!blocked");
-            return { cancel: false };
-        }
+        const instance = result.instance || "invidious.osi.kr";
+        return { cancel: page.originUrl.includes("courses.ionisx.com") && !instance.includes("www.youtube.com") };
     }
 
     browser.webRequest.onBeforeRequest.addListener(page => { return blockYt(page) },

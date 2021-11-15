@@ -7,13 +7,13 @@ function onError(error) {
 function changeMediaPlayer(instance, iframes) {    
     for (let el of iframes) {
         try {
-            let video = el.src;
+            const video = el.src;
 
             if (video.includes("www.youtube.com")) {
-                let newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance) || video.replace("www.youtube.com", instance);
+                const newvideo = video.substring(0, video.indexOf('?')).replace("www.youtube.com", instance) || video.replace("www.youtube.com", instance);
                 el.src = newvideo;
 
-                let size = el.scrollWidth;
+                const size = el.scrollWidth;
                 el.width = size;
                 el.height = size / 16 * 9;
             }
@@ -28,7 +28,7 @@ function changeMediaPlayer(instance, iframes) {
 
 function waitForIFrame(n, instance) {
     window.setTimeout(function () {
-        let elements = document.getElementsByTagName("iframe");
+        const elements = document.getElementsByTagName("iframe");
 
         if (elements.length != 0) {
             changeMediaPlayer(instance, elements)
@@ -39,9 +39,9 @@ function waitForIFrame(n, instance) {
 }
 
 function getInstance(result) {
-    let instance = result.instance || "invidio.xamh.de";
+    const instance = result.instance ?? "invidious.osi.kr";
     waitForIFrame(0, instance);
 }
 
-let getting = browser.storage.local.get("instance");
+const getting = browser.storage.local.get("instance");
 getting.then(getInstance, onError);

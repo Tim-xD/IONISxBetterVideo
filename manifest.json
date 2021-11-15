@@ -1,12 +1,11 @@
 {
   "manifest_version": 2,
   "name": "IONISxBetterVideo",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "content_scripts": [
     {
       "matches": [
-        "https://courses.ionisx.com/*",
-        "https://ionisx.com/courses/*"
+        "https://courses.ionisx.com/courses/*"
       ],
       "js": [
         "main.js"
@@ -16,7 +15,6 @@
   "permissions": [
     "webRequest",
     "webRequestBlocking",
-    "tabs",
     "storage",
     "*://www.youtube.com/*"
   ],

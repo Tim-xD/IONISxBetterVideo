@@ -9,16 +9,16 @@ function saveOptions(e) {
 function reset(e) {
     e.preventDefault();
     browser.storage.local.set({
-        instance: "invidio.xamh.de"
+        instance: "invidious.osi.kr"
     });
-    document.querySelector("#instance").value = "invidio.xamh.de";
+    document.querySelector("#instance").value = "invidious.osi.kr";
     browser.runtime.reload();
 }
 
 function restoreOptions() {
 
     function setCurrentChoice(result) {
-        document.querySelector("#instance").value = result.instance || "invidio.xamh.de";
+        document.querySelector("#instance").value = result.instance ?? "invidious.osi.kr";
     }
 
     function onError(error) {
