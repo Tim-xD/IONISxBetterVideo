@@ -13,7 +13,7 @@ function onError(error) {
 
 function blockRequest(result) {
     function blockYt(page) {
-        const instance = result.instance || "invidious.osi.kr";
+        const instance = result.instance || "yewtu.be";
         return { cancel: page.originUrl.includes("courses.ionisx.com") && !instance.includes("www.youtube.com") };
     }
 

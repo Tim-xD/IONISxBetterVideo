@@ -1,3 +1,5 @@
+const base = "yewtu.be";
+
 function saveOptions(e) {
     e.preventDefault();
     browser.storage.local.set({
@@ -9,16 +11,16 @@ function saveOptions(e) {
 function reset(e) {
     e.preventDefault();
     browser.storage.local.set({
-        instance: "invidious.osi.kr"
+        instance: base
     });
-    document.querySelector("#instance").value = "invidious.osi.kr";
+    document.querySelector("#instance").value = base;
     browser.runtime.reload();
 }
 
 function restoreOptions() {
 
     function setCurrentChoice(result) {
-        document.querySelector("#instance").value = result.instance ?? "invidious.osi.kr";
+        document.querySelector("#instance").value = result.instance ?? base;
     }
 
     function onError(error) {

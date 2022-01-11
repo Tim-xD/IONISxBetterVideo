@@ -1,3 +1,5 @@
+const base = "yewtu.be";
+
 const removeElements = (elms) => elms.forEach(el => el.remove());
 
 function onError(error) {
@@ -32,16 +34,18 @@ function waitForIFrame(n, instance) {
 
         if (elements.length != 0) {
             changeMediaPlayer(instance, elements)
-        } else if (n <= 3) {
+        } else if (n <= 4) {
             waitForIFrame(n + 1, instance);
         }
     }, 250)
 }
 
 function getInstance(result) {
-    const instance = result.instance ?? "invidious.osi.kr";
+    const instance = result.instance ?? base;
     waitForIFrame(0, instance);
 }
 
-const getting = browser.storage.local.get("instance");
-getting.then(getInstance, onError);
+window.addEventListener('load', function () {
+    const getting = browser.storage.local.get("instance");
+    getting.then(getInstance, onError);
+  })
